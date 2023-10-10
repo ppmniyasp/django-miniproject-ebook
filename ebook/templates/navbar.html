@@ -1,0 +1,47 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <!-- Logo (Brand) -->
+        <a class="navbar-brand" href="#">
+            <h1>E-<span class="text-primary">Books</span></h1>
+        </a>
+        
+        <!-- Toggle button for mobile -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navbar Items -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'books' %}">Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_messages' %}">Inbox</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add-books' %}">Add Books</a>
+                </li>
+                <br>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item btn btn-primary">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <p class=" ml-4">Hey<b class="text-primary"> {{request.user.username}}</b></p>
+                {% else %}
+                <li class="nav-item btn btn-primary">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+                <!-- Add more menu items here -->
+            </ul>
+        </div>
+    </div>
+</nav>

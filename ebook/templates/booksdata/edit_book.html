@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+
+{% block content %}
+
+    <h3 class="text-center text-primary">Add Book</h3>
+    <hr>
+    <a href="{{request.GET.next}}" class="btn btn-primary m-3"><< Go Back</a>
+    <div class="container w-50 bg-light  mb-4 p-3">
+        <h4 class="text-center">Fill The Book Detailes</h4>
+        <form method="post" action="" enctype="multipart/form-data" >
+            {% csrf_token %}
+           {% for field in form %}
+            <div class="form__field">
+                <label for="formInput#text">{{field.label}}: </label>
+                {{field}}
+            </div>
+            <br>
+            {% endfor %}
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary m-4 w-50">Save Changes</button>
+            </div>
+            
+        </form>
+    </div>
+
+
+    
+
+
+    
+    
+
+{% endblock content %}
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Book</title>
+</head>
+<body>
+    <h1>Edit Book</h1>
+    <form method="post" action="" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="{{request.GET.next}}">Go Back</a>
+</body>
+</html> -->

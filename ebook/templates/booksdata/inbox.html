@@ -1,0 +1,59 @@
+<!-- admin_messages.html -->
+
+{% extends 'main.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<!-- admin_messages.html -->
+{% if messages %}
+    <div class="container ">
+        <h2 class="text-center m-4 text-primary">Orders</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">Book Name</th>
+        <th scope="col">DateTime</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+{% endif %}
+      {% for message in messages %}
+        <tr>
+          <td>{{ message.user.username }}</td>
+          <td>{{ message.book_name }}</td>
+          <td>{{ message.datetime }}</td>
+          <td>
+            {% if message.is_approved %} <span class="text-success">Approved</span> {% else %}<span class="text-primary">Pending</span>{% endif %}
+          </td>
+          <td>
+            <div style="display: flex;">
+                <form method="post" action="{% url 'approve_message' message.id %}">
+                    {% csrf_token %}
+                    <!-- <input type="hidden" name="message_id" value="{{ message.id }}"> -->
+                    <button class="btn btn-success m-2" type="submit" name="action" value="approve">Approve</button>
+                </form>
+                <form method="post" action="{% url 'reject_message' message.id %}">
+                    {% csrf_token %}
+                    <!-- <input type="hidden" name="message_id" value="{{ message.id }}"> -->
+                    <button class="btn btn-danger m-2"  type="submit" name="action" value="reject">Reject</button>
+                </form>
+                <form method="post" action="{% url 'delete_message' message.id %}" >
+                    {% csrf_token %}
+                    <button class="btn btn-danger m-2 delete-button"  type="submit" name="action" value="delete">Delete</button>
+                </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    </div>
+  
+
+
+{% endblock %}
+

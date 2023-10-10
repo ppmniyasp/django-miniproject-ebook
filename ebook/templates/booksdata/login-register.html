@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    {% if page == 'register' %}
+
+    <h2>Sign Up</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Register">
+    </form>
+    <p>Already have an account <a href="{% url 'login' %}">Login</a></p>
+
+    {% else %}
+    <div class="container d-flex align-items-center justify-content-center vh-100">
+        
+        <form style="border-radius: 5px;" method="post" class="bg-light p-4 w-50">
+            {% csrf_token %}
+            <h3 class="text-center">Login</h3>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Username :</label>
+                <input type="text" class="form-control" name="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Password :</label>
+                <input type="text" class="form-control" name="password" placeholder="Enter password">
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn btn-primary p-1 w-50">Login</button>
+            </div>
+            <br>
+        </form>
+    </div>
+
+    {% endif %}
+
+{% endblock content %}

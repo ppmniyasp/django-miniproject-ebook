@@ -1,0 +1,99 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+
+
+    <!--Books-->
+    <a href="{% url 'books' %}" class="btn btn-primary m-1">< Go back</a>
+    <div class="containar">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-3 pb-4">
+                    <div style="border: 1px solid rgb(234, 230, 230);" class="card text-center">
+                        <a href="#">
+                            <img src="{{ book.imageURL }}" class="card-img-top p-3" alt="Card Image">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 pb-4">
+                    <div class="">
+                        <div>
+                            <h2 class="card-title ">{{book.title | title}}</h2>
+                            <p class="card-text text-primary">By: {{book.auther | title}}(Auther)</p><br>
+                            <p>Publisher:{{book.publisher | title}} | Released:{{book.released | date:"d M Y" }}</p><br>
+                            Type:
+                            <ul>
+                                {% for type in book.types.all %}
+                                <li>{{type}}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>Language:{{book.language}}</p>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h5 class="text-danger">About The Book</h5>
+        <p>{{book.description | linebreaks}}</p><br><br>
+        <h5 class="text-danger">About The Auther</h5>
+        <p>{{book.auther_description | linebreaks}}</p><br>
+
+        <div style="display: flex;">
+            <a href="{% url 'edit-book' book.id %}?next=/admin-side/view-book/{{book.id}}" ><button class="btn btn-primary mt-2">Edit</button></a>
+            <form method="post" action="{% url 'delete-book' book.id %}" >
+                {% csrf_token %}
+                <button class="btn btn-danger m-2 delete-button"  type="submit" name="action" value="delete">Delete</button>
+            </form>
+        </div>
+        <!-- <a href="{% url 'delete-book' book.id %}?next=/view-book/{{book.id}}" class="btn btn-danger m-1">Delete</a> -->
+
+    </div>
+    <div class="text-right">
+        <hr>
+        <br>
+    
+        <h6><a href="{% url 'add-review' book.id %}?next=/admin-side/view-book/{{book.id}}" class="btn btn-primary m-2 mr-5">Write a review</a></h6>
+    
+        <br>
+        <hr>
+    </div>
+    <div class="container">
+        {% for review in reviews %}
+        <h6>@{{review.title | lower}}</h6>
+        <p>{{review.body}}</p>
+
+        <div style="display: flex;">
+            <a href="{% url 'edit-review' book.id review.id %}?next=/admin-side/view-book/{{book.id}}" ><button class="btn btn-light mt-2">Edit</button></a>
+            <form method="post" action="{% url 'delete-review' book.id review.id %}" >
+                {% csrf_token %}
+                <button class="btn btn-light m-2 delete-button"  type="submit" name="action" value="delete">Delete</button>
+            </form>
+        </div>
+        <br>
+        <!-- <a href="{% url 'delete-review' book.id review.id %}?next=/view-book/{{book.id}}" class="btn btn-light"><small>Delete</small></a><br> -->
+        <small>{{review.created_at | timesince }}</small>
+        <hr>
+        {% endfor %}
+
+
+        <br>
+    </div>
+    
+    {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+

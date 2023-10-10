@@ -1,0 +1,44 @@
+{% extends 'user_main.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+
+    <!--Books-->
+    <h2 class="text-center text-primary">Books</h2>
+    <hr>
+    <div class="container mt-5">
+        <div class="row">
+            {% for book in books %}
+            <div class="col-md-3 pb-4">
+                <div style="border: 1px solid rgb(234, 230, 230);" class="card text-center">
+                    <a href="{% url 'user-view-book' book.id %}">
+                        <img src="{{ book.imageURL }}" class="card-img-top p-3" alt="Card Image">
+                    </a>
+                    <div class="card-body">
+                        <a href="{% url 'user-view-book' book.id %}" class="text-decoration-none">
+                            <p style="height: 20px;" class="card-title text-dark"><b>{{book.title | title}}</b></p>
+                            <p class="card-text m-0 ">By: {{book.auther | title}}</p>
+                            <p class="card-text text-dark">
+                                {% for type in book.types.all %}
+                                    {% if not forloop.first %}{% if not forloop.last %},{% endif %}{% endif %}
+                                    {% if forloop.last and not forloop.first %}&{% endif %}
+                                    {{ type }}
+                                {% endfor %}
+                            </p>
+                        </a>
+                        <a href="{% url 'send_message' book.id %}" class="btn btn-primary">Take now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+
+
+

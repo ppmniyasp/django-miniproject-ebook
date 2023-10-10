@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style/apps.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    {% include 'user_navbar.html' %}
+
+    {% block content %}
+
+    // write html content here
+
+    {% endblock content %}
+
+    <script>
+        // This JavaScript code will display a confirmation dialog when the "Delete" button is clicked.
+        // It will ask the user if they are sure they want to delete the message.
+        // If the user clicks "OK," the form will be submitted, and the message will be deleted.
+        // If the user clicks "Cancel," the form submission will be canceled.
+      
+        // Attach a click event handler to the "Delete" buttons
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const confirmed = confirm('Are you sure you want to delete?');
+                if (!confirmed) {
+                    event.preventDefault(); // Cancel the form submission if not confirmed
+                }
+            });
+        });
+      </script>
+</body>
+</html>

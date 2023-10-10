@@ -1,0 +1,42 @@
+{% extends 'user_main.html' %}
+
+{% block content %}
+
+<a href="{% url 'user-books' %}" class="btn btn-primary mt-3"><< Go Back</a>
+<div class="container ">
+  <h2 class="text-center m-4 text-primary">Order Status</h2>
+{% if user_messages %}
+<table class="table table-striped">
+<thead>
+<tr>
+  <th scope="col">Book Name</th>
+  <th scope="col">DateTime</th>
+  <th scope="col">Status</th>
+  <th scope="col">Delete</th>
+  <th></th>
+</tr>
+</thead>
+{% endif %}
+<tbody>
+{% for message in user_messages %}
+  <tr>
+    <td>{{ message.book_name }}</td>
+    <td>{{ message.datetime }}</td>
+    <td>
+      {% if message.is_approved %} <span class="text-success">Approved</span> {% else %}<span class="text-primary">Pending</span>{% endif %}
+    </td>
+    <td>
+      <div style="display: flex;">
+        <form method="post" action="{% url 'user-delete-message' message.id %}" >
+          {% csrf_token %}
+          <button class="btn btn-danger m-2 delete-button"  type="submit" name="action" value="delete">Delete</button>
+      </form>
+      </div>
+    </td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+{% endblock %}

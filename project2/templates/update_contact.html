@@ -1,0 +1,11 @@
+<p><a href="{% url 'list-contacts' %}">Go back</a></p>
+<hr>
+
+<form action="" method="post">
+    {% csrf_token %}
+    First Name : <input type="text" name="f_name" value="{{ contact.first_name }}"><br>
+    Last Name : <input type="text" name="l_name" value="{{ contact.last_name }}"><br>
+    Email : <input type="text" name="email" value="{{ contact.email }}"><br>
+    Phone : <input type="text" name="phone" value="{{ contact.phone }}"><br>
+    <input type="submit">
+</form>
